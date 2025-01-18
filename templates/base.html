@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackmounster</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% block extra_css %}{% endblock %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="/">Blackmounster</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+              <a class="nav-link active text-white" aria-current="page" href="/">Inicio</a>
+              <a class="nav-link text-white" href="/peliculas/">Peliculas</a>
+              {% if user.is_authenticated %}
+                <p class="nav-link text-white">{{user.username}}</p>
+                <a class="nav-link text-white" href="/transacciones/">Transacciones</a>
+                <a class="nav-link text-white" href="/logout/">Cerrar Sesion</a>
+              {% else %}
+              <a class="nav-link text-white" href="/login/">Iniciar Sesion</a>
+              <a class="nav-link text-white" href="/registro/">Registrate</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+</head>
+<body>
+    {% block content %}{% endblock %}
+    
+    {% bootstrap_javascript %}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

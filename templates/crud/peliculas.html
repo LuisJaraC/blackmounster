@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h3 class="text-center p-5"><strong>Peliculas</strong></h3>
+<table class="table mx-auto mt-4" style="max-width: 80%;">
+  <thead class="bg-dark text-white">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Director</th>
+        <th scope="col">Genero</th>
+        <th scope="col">Venta</th>
+        <th scope="col">Arriendo</th>
+        <th scope="col">Stock</th>
+        {% if user.is_staff %}
+        <th scope="col">Detalle</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Eliminar</th>
+        {% else %}
+        <th scope="col">Detalle</th>
+        {% endif %}
+      </tr>
+    </thead>
+    {% for pelicula in peliculas %}
+        <tbody>
+          <tr>
+            <th scope="row">{{pelicula.id}}</th>
+            <td>{{pelicula.titulo}}</td>
+            <td>{{pelicula.director}}</td>
+            <td>{{pelicula.genero}}</td>
+            <td>{{pelicula.precio_compra}}</td>
+            <td>{{pelicula.precio_arriendo}}</td>
+            <td>{{pelicula.stock}}</td>
+            {% if user.is_staff %}
+            <td><a href="/peliculas/{{pelicula.id}}">Detalle</a></td>
+            <td><a href="/peliculas/{{pelicula.id}}/editar">Editar</a></td>
+            <td><a href="/peliculas/{{pelicula.id}}/eliminar">Eliminar</a></td>
+            {% else %}
+            <td><a href="/peliculas/{{pelicula.id}}">Detalle</a></td>
+            {% endif %}
+          </tr>
+        </tbody>
+    {% endfor %}
+</table>
+{% if user.is_staff %}
+<a href="/peliculas/nueva/" class="btn btn-primary">Agregar Pelicula</a>
+{% else %}
+<a href="/" class="btn btn-primary ">Volver a inicio</a>
+{% endif %}
+
+{% endblock %}

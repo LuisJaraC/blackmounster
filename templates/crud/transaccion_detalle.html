@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h2 class="text-center">Detalle Transaccion</h2>
+<div class="card p-5" style="width: auto;">
+    <div class="card-body p-5">
+      <h4 class="card-title"><strong>Transaccion #{{transaccion.id}}</strong></h4>
+      <p class="card-subtitle mb-2 text-body-secondary"><strong>Usuario: </strong>{{transaccion.usuario}}</p>
+      <p class="card-text"><strong>Pelicula: </strong>{{transaccion.pelicula}}</p>
+      <p class="card-text"><strong>Tipo: </strong>{{transaccion.tipo}}</p>
+      <p class="card-text"><strong>Precio: </strong>
+        {% if transaccion.tipo == 'Compra' %}
+        {{transaccion.pelicula.precio_compra}}
+        {% else %}
+        {{transaccion.pelicula.precio_arriendo}}
+        {% endif %}
+    </p>
+      <p class="card-text"><strong>Fecha: </strong>{{transaccion.fecha_inicio}}</p>
+      <p class="card-text"><strong>Estado: </strong>{{transaccion.estado}}</p>
+      <div class="d-flex gap-2">
+          <a href="/transacciones/" class="btn btn-primary">Volver al listado</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

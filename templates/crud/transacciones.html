@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+{% if user.is_staff %}
+  <h3 class="text-center p-5">Transacciones de Todos los Usuarios</h3>
+{% else %}
+  <h3 class="text-center p-5">Mis Transacciones</h3>
+{% endif %}
+<table class="table mx-auto" style="max-width: 80%;">
+    <thead class="bg-dark text-white">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Pelicula</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Inicio</th>
+        <th scope="col">Fin</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Detalle Transaccion</th>
+        <!-- <th scope="col">Editar Transaccion</th>
+        <th scope="col">Eliminar Transaccion</th> -->
+      </tr>
+    </thead>
+    {% for transaccion in transacciones %}
+        <tbody>
+          <tr>
+            <th scope="row">{{transaccion.id}}</th>
+            <td>{{transaccion.usuario}}</td>
+            <td>{{transaccion.pelicula}}</td>
+            <td>{{transaccion.tipo}}</td>
+            <td>{{transaccion.fecha_inicio}}</td>
+            <td>{{transaccion.fecha_fin}}</td>
+            <td>{{transaccion.estado}}</td>
+            <td><a href="/transacciones/{{transaccion.id}}">Detalle</a></td>
+            <!-- <td><a href="#">Editar</a></td>
+            <td><a href="#">Eliminar</a></td> -->
+          </tr>
+        </tbody>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

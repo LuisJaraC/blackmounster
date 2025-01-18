@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="card p-5" style="width: auto;">
+    <div class="card-body p-5">
+      <h5 class="card-title">{{pelicula.titulo}}</h5>
+      <p class="card-subtitle mb-2 text-body-secondary"><strong>Director: </strong>{{pelicula.director}}</p>
+      <p class="card-text"><strong>Descripcion: </strong>{{pelicula.descripcion}}</p>
+      <p class="card-text"><strong>Venta: </strong>{{pelicula.precio_compra}}</p>
+      <p class="card-text"><strong>Arriendo: </strong>{{pelicula.precio_arriendo}}</p>
+
+      {% if user.is_authenticated %}
+      <div class="d-flex gap-2">
+        <form action="{% url 'nueva transaccion' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="pelicula" value="{{pelicula.id}}">
+          <input type="hidden" name="tipo" value="Compra">
+          <button type="submit" class="btn btn-primary">Comprar</button>
+        </form>
+  
+        <form action="{% url 'nueva transaccion' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="pelicula" value="{{pelicula.id}}">
+          <input type="hidden" name="tipo" value="Arriendo">
+          <button type="submit" class="btn btn-secondary">Arrendar</button>
+        </form>
+      </div>
+      {% else %}
+      <a type="submit" class="btn btn-secondary" href="/peliculas/">Volver</a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
